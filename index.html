@@ -1,0 +1,964 @@
+<!-- STREAMING_CHUNK:Initializing unified HTML document structure and styles... -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Навчальне дослідження: Екстракція (Хімія 9 клас)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, .heading-font {
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .glass-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 1.25rem;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    /* Анімація розшарування рідин у пробірці */
+    .test-tube {
+      width: 85px;
+      height: 240px;
+      border: 4px solid #64748b;
+      border-bottom-left-radius: 42px;
+      border-bottom-right-radius: 42px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    .layer-top, .layer-bottom {
+      position: absolute;
+      width: 100%;
+      transition: all 0.8s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .layer-bottom { bottom: 0; }
+    .layer-top { top: 0; }
+
+    .mortar-bowl {
+      width: 160px;
+      height: 100px;
+      background: #e2e8f0;
+      border-radius: 0 0 80px 80px;
+      border: 5px solid #cbd5e1;
+      position: relative;
+    }
+
+    .photo-frame {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+  <!-- STREAMING_CHUNK:Rendering application header... -->
+  <!-- Header -->
+  <header class="max-w-5xl mx-auto mb-8 text-center">
+    <div class="inline-block bg-blue-100 text-blue-900 text-base font-bold px-4 py-1.5 rounded-full mb-3">
+      Хімія • 9 клас
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-3">
+      Навчальне дослідження: «Екстракція»
+    </h1>
+    <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+      Вивчаємо виділення речовин із природних об'єктів та правила добору розчинників
+    </p>
+  </header>
+
+  <!-- STREAMING_CHUNK:Rendering navigation buttons with click handlers... -->
+  <!-- Navigation Tabs -->
+  <nav class="max-w-5xl mx-auto mb-8">
+    <div class="flex flex-wrap gap-3 justify-center border-b border-slate-200 pb-4">
+      <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn px-5 py-3 font-bold rounded-xl bg-blue-600 text-white shadow-sm">
+        <i class="fa-solid fa-book-open mr-2"></i>1. Теорія
+      </button>
+      <button onclick="switchTab('sorter')" id="tab-sorter" class="tab-btn px-5 py-3 font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border">
+        <i class="fa-solid fa-atom mr-2"></i>2. Будова і Полярність
+      </button>
+      <button onclick="switchTab('lab')" id="tab-lab" class="tab-btn px-5 py-3 font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border">
+        <i class="fa-solid fa-flask mr-2"></i>3. Віртуальні Досліди
+      </button>
+      <button onclick="switchTab('cases')" id="tab-cases" class="tab-btn px-5 py-3 font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border">
+        <i class="fa-solid fa-shirt mr-2"></i>4. Практикум: Плями
+      </button>
+      <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn px-5 py-3 font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border">
+        <i class="fa-solid fa-square-check mr-2"></i>5. Перевірка знань
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="max-w-5xl mx-auto">
+
+    <!-- STREAMING_CHUNK:Section 1 - Theory... -->
+    <!-- SECTION 1: THEORY -->
+    <section id="section-theory" class="tab-content block space-y-6">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-3">
+          <i class="fa-solid fa-lightbulb text-amber-500"></i> Що таке Екстракція?
+        </h2>
+        <p class="text-lg mb-4">
+          <strong class="text-blue-900 bg-blue-50 px-2 py-1 rounded">Екстракція</strong> — це процес виділення однієї або кількох речовин із суміші за допомогою вибіркового розчинника.
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-6 my-6">
+          <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl">
+            <h3 class="font-bold text-amber-900 text-xl mb-2">Головний принцип розчинності:</h3>
+            <p class="text-amber-800 text-2xl font-bold italic mb-3">«Подібне розчиняється в подібному»</p>
+            <ul class="space-y-2 text-slate-700 text-base">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-droplet text-blue-500 mt-1"></i>
+                <span><strong>Полярні речовини</strong> (цукор, солі, органічні кислоти) розчиняються у <em>полярних розчинниках</em> (вода).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-oil-can text-amber-600 mt-1"></i>
+                <span><strong>Неполярні речовини</strong> (жири, олії, каротин, хлорофіл, йод) розчиняються у <em>неполярних розчинниках</em> (бензин, олія, ефір).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-wine-glass text-purple-600 mt-1"></i>
+                <span><strong>Етанол (спирт)</strong> — розчинник універсальної дії, що може розчиняти як деякі полярні, так і неполярні сполуки.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-slate-800 text-xl mb-3">Приклади з повсякденного життя</h3>
+            <div class="space-y-4 text-base">
+              <div class="flex items-center gap-3 bg-white p-3 rounded-lg border">
+                <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=120&q=80" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" alt="Чай">
+                <div>
+                  <strong>Заварювання чаю та кави:</strong> Гаряча вода екстрагує водорозчинні ароматичні речовини, таніни та кофеїн.
+                </div>
+              </div>
+              <div class="flex items-center gap-3 bg-white p-3 rounded-lg border">
+                <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=120&q=80" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" alt="Олія">
+                <div>
+                  <strong>Отримання соняшникової олії:</strong> Подрібнене насіння обробляють неполярним розчинником для вилучення олії з макухи.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+          <h3 class="font-bold text-lg text-blue-900 mb-2">Що прискорює процес екстракції?</h3>
+          <div class="grid md:grid-cols-3 gap-4 text-center mt-3">
+            <div class="bg-white p-4 rounded-xl border">
+              <div class="text-3xl mb-1">🔨</div>
+              <h4 class="font-bold text-slate-800 text-base">Подрібнення</h4>
+              <p class="text-xs text-slate-600 mt-1">Збільшує площу контакту розчинника з речовиною</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border">
+              <div class="text-3xl mb-1">🔥</div>
+              <h4 class="font-bold text-slate-800 text-base">Нагрівання</h4>
+              <p class="text-xs text-slate-600 mt-1">Прискорює хаотичний рух молекул і розчинення</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border">
+              <div class="text-3xl mb-1">🎯</div>
+              <h4 class="font-bold text-slate-800 text-base">Правильний розчинник</h4>
+              <p class="text-xs text-slate-600 mt-1">Добір за принципом полярності молекул</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Section 2 - Polarity trainer... -->
+    <!-- SECTION 2: POLARITY SORTER -->
+    <section id="section-sorter" class="tab-content hidden space-y-6">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-blue-700 mb-2">
+          <i class="fa-solid fa-atom mr-2"></i> Тренажер: Будова молекули та Полярність
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Розгляньте фотографію речовини та підказку щодо будови її молекули. Визначте полярність та оберіть розчинник!
+        </p>
+
+        <!-- Sorter Card -->
+        <div id="sorter-card" class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-6 text-center max-w-2xl mx-auto shadow-sm">
+          
+          <div class="grid md:grid-cols-2 gap-4 mb-4 items-center">
+            <!-- Photo Frame -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 h-48 flex flex-col items-center justify-center">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Вигляд речовини</span>
+              <img id="sorter-photo" src="" alt="Речовина" class="photo-frame shadow-sm border">
+            </div>
+
+            <!-- Structural Formula / Scheme -->
+            <div class="bg-white p-3 rounded-xl border border-slate-200 h-48 flex flex-col justify-center items-center">
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Будова молекули</span>
+              <div id="sorter-molecule-scheme" class="w-full flex-1 flex items-center justify-center p-2"></div>
+            </div>
+          </div>
+
+          <h3 id="sorter-title" class="text-2xl font-bold text-slate-800 mb-1">Назва речовини</h3>
+          <p id="sorter-desc" class="text-slate-600 mb-4 text-base">Опис та хімічні підказки</p>
+
+          <div class="space-y-5 border-t border-slate-200 pt-4">
+            <div>
+              <p class="font-bold text-slate-800 mb-2">1. Зважаючи на будову, яка це речовина за полярністю?</p>
+              <div class="flex justify-center gap-4">
+                <button onclick="checkPolarity('polar')" class="px-6 py-2.5 bg-sky-100 text-sky-900 font-bold rounded-xl border border-sky-300 hover:bg-sky-200">
+                  Полярна
+                </button>
+                <button onclick="checkPolarity('nonpolar')" class="px-6 py-2.5 bg-amber-100 text-amber-900 font-bold rounded-xl border border-amber-300 hover:bg-amber-200">
+                  Неполярна
+                </button>
+              </div>
+            </div>
+
+            <div id="solvent-choice" class="hidden pt-4 border-t border-slate-200">
+              <p class="font-bold text-slate-800 mb-2">2. Який розчинник ефективно її екстрагує?</p>
+              <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="checkSolvent('water')" class="px-4 py-2 bg-white text-slate-800 border-2 font-bold rounded-xl hover:bg-blue-50">Вода</button>
+                <button onclick="checkSolvent('benzin')" class="px-4 py-2 bg-white text-slate-800 border-2 font-bold rounded-xl hover:bg-amber-50">Бензин / Ефір</button>
+                <button onclick="checkSolvent('ethanol')" class="px-4 py-2 bg-white text-slate-800 border-2 font-bold rounded-xl hover:bg-purple-50">Етанол (Спирт)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback message -->
+          <div id="sorter-feedback" class="mt-4 p-3 rounded-xl hidden text-lg font-bold"></div>
+        </div>
+
+        <div class="flex justify-between items-center max-w-2xl mx-auto mt-4">
+          <span id="sorter-score" class="font-bold text-slate-700">Очки: 0 / 5</span>
+          <button id="next-sorter-btn" onclick="nextSorterItem()" class="btn-primary px-6 py-2.5 rounded-xl font-bold hidden">
+            Наступна речовина <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Section 3 - Lab Section... -->
+    <!-- SECTION 3: VIRTUAL LAB -->
+    <section id="section-lab" class="tab-content hidden space-y-6">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-blue-700 mb-2">
+          <i class="fa-solid fa-vial-circle-check mr-2"></i> Віртуальна лабораторія екстракції
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Оберіть дослідження для відтворення лабораторного експерименту:
+        </p>
+
+        <!-- Lab Selector -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+          <button onclick="setupLabExp('leaves')" class="p-5 border-2 border-emerald-300 bg-emerald-50 hover:bg-emerald-100 rounded-2xl text-left transition flex items-center gap-4">
+            <span class="text-4xl">🍃</span>
+            <div>
+              <h3 class="font-bold text-emerald-950 text-xl">Дослід 1: Хлорофіл з листя</h3>
+              <p class="text-sm text-emerald-800">Подрібнення, абразивне розтирання та виділення розчинником</p>
+            </div>
+          </button>
+
+          <button onclick="setupLabExp('iodine')" class="p-5 border-2 border-purple-300 bg-purple-50 hover:bg-purple-100 rounded-2xl text-left transition flex items-center gap-4">
+            <span class="text-4xl">🧪</span>
+            <div>
+              <h3 class="font-bold text-purple-950 text-xl">Дослід 2: Перерозподіл Йоду</h3>
+              <p class="text-sm text-purple-800">Екстракція молекулярного йоду неполярним розчинником</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- LAB WORKSPACE -->
+        <div id="lab-workspace" class="bg-slate-100 border border-slate-300 rounded-2xl p-6 min-h-[420px] flex flex-col justify-between">
+          
+          <div class="flex justify-between items-center mb-4">
+            <h3 id="lab-title" class="text-xl font-bold text-slate-800">Оберіть експеримент вище</h3>
+            <span id="lab-step-badge" class="bg-blue-600 text-white font-bold text-sm px-3 py-1 rounded-full">Крок 1</span>
+          </div>
+
+          <!-- Dynamic Visual Stage -->
+          <div class="flex-1 flex flex-col items-center justify-center my-6 min-h-[220px]" id="lab-visuals">
+            <div class="text-slate-400 text-center">
+              <i class="fa-solid fa-flask-vials text-6xl mb-3"></i>
+              <p class="text-lg">Натисніть на картку досліду вище, щоб розпочати</p>
+            </div>
+          </div>
+
+          <!-- Instructions & Control -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <p id="lab-instruction" class="font-medium text-slate-800 mb-4 text-center text-xl">
+              Очікування вибору досліду...
+            </p>
+            <div class="flex justify-center">
+              <button id="lab-action-btn" onclick="advanceLabStep()" disabled class="bg-slate-300 text-slate-500 font-bold px-8 py-3 rounded-xl transition cursor-not-allowed text-lg">
+                Виконати дію
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Section 4 - Stain Removal Simulator... -->
+    <!-- SECTION 4: STAIN REMOVAL SIMULATOR -->
+    <section id="section-cases" class="tab-content hidden space-y-6">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-blue-700 mb-2">
+          <i class="fa-solid fa-shirt mr-2"></i> Симулятор: Виведення плям з тканини
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Оберіть тип забруднення та сплануйте послідовність дій. Перевірте, чи зможете ви врятувати одяг!
+        </p>
+
+        <!-- Stain Selection Tabs -->
+        <div class="flex flex-wrap gap-3 mb-6 justify-center">
+          <button onclick="loadStainSim('grass')" id="stain-btn-grass" class="stain-tab px-4 py-2.5 rounded-xl font-bold border border-green-300 bg-green-100 text-green-900 hover:bg-green-200">
+            🌿 Пляма від трави
+          </button>
+          <button onclick="loadStainSim('beet')" id="stain-btn-beet" class="stain-tab px-4 py-2.5 rounded-xl font-bold border border-rose-300 bg-white text-slate-700 hover:bg-rose-50">
+            🥬 Пляма від буряка
+          </button>
+          <button onclick="loadStainSim('butter')" id="stain-btn-butter" class="stain-tab px-4 py-2.5 rounded-xl font-bold border border-amber-300 bg-white text-slate-700 hover:bg-amber-50">
+            🧈 Жирна пляма (олія)
+          </button>
+        </div>
+
+        <!-- Stain Interactive Board -->
+        <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-6 grid md:grid-cols-2 gap-6 items-center">
+          
+          <!-- Visual Fabric Canvas -->
+          <div class="bg-white p-6 rounded-xl border flex flex-col items-center justify-center text-center">
+            <h4 id="sim-stain-title" class="font-bold text-xl text-slate-800 mb-2">Забруднення</h4>
+            
+            <!-- Fabric preview graphic -->
+            <div class="relative w-48 h-48 bg-slate-100 rounded-2xl border-4 border-slate-300 flex items-center justify-center overflow-hidden shadow-inner my-3">
+              <i class="fa-solid fa-shirt text-slate-300 text-9xl absolute"></i>
+              <!-- Stain Blob -->
+              <div id="sim-stain-blob" class="w-20 h-20 rounded-full blur-sm transition-all duration-700 z-10 opacity-90"></div>
+            </div>
+
+            <p id="sim-stain-hint" class="text-sm text-slate-600 mt-1">Опис пігменту та його властивостей</p>
+          </div>
+
+          <!-- Decision Options -->
+          <div class="space-y-4">
+            <h4 class="font-bold text-slate-800 text-lg">Ваш план дій:</h4>
+            
+            <div>
+              <label class="block text-sm font-bold text-slate-700 mb-1">1. Температура води для обробки:</label>
+              <select id="sim-select-temp" class="w-full p-3 bg-white border rounded-xl text-base font-semibold text-slate-800">
+                <option value="warm">Тепла вода (35°C - 40°C)</option>
+                <option value="cold">Холодна вода (20°C)</option>
+                <option value="hot">Гаряча вода (90°C)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold text-slate-700 mb-1">2. Вибір засобу / розчинника:</label>
+              <select id="sim-select-agent" class="w-full p-3 bg-white border rounded-xl text-base font-semibold text-slate-800">
+                <option value="water">Звичайна вода</option>
+                <option value="benzin">Очищений бензин / неполярний розчинник</option>
+                <option value="alcohol">Етиловий / саліциловий спирт</option>
+                <option value="soap">Мило / Засіб для посуду</option>
+              </select>
+            </div>
+
+            <button onclick="runStainSimulation()" class="w-full btn-primary py-3 rounded-xl font-bold text-lg mt-2 shadow-md">
+              <i class="fa-solid fa-play mr-2"></i>Застосувати та випрати
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Simulation Feedback -->
+        <div id="sim-result-box" class="hidden p-5 rounded-2xl border-2 text-base"></div>
+
+      </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Section 5 - Quiz... -->
+    <!-- SECTION 5: QUIZ -->
+    <section id="section-quiz" class="tab-content hidden space-y-6">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-blue-700 mb-2">
+          <i class="fa-solid fa-list-check mr-2"></i> Підсумковий тест
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Дайте відповіді на 8 запитань для перевірки засвоєння теми:
+        </p>
+
+        <div id="quiz-container" class="space-y-6"></div>
+
+        <div class="mt-8 text-center border-t border-slate-200 pt-6">
+          <button onclick="calculateQuizScore()" class="btn-primary px-8 py-3.5 rounded-xl font-bold text-lg shadow-lg">
+            Перевірити всі відповіді
+          </button>
+          <div id="quiz-final-score" class="mt-4 font-bold text-2xl text-slate-800"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- STREAMING_CHUNK:Executing standalone robust JavaScript core... -->
+  <script>
+    // Robust Tab Switching Logic
+    function switchTab(tabName) {
+      // Hide all contents
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(el => el.classList.add('hidden'));
+
+      // Deactivate all buttons
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-white', 'text-slate-700');
+      });
+
+      // Show selected content
+      const targetContent = document.getElementById('section-' + tabName);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+
+      // Activate selected button
+      const targetBtn = document.getElementById('tab-' + tabName);
+      if (targetBtn) {
+        targetBtn.classList.add('bg-blue-600', 'text-white');
+        targetBtn.classList.remove('bg-white', 'text-slate-700');
+      }
+    }
+
+    // SORTER DATA
+    const sorterItems = [
+      {
+        title: "Каротин (із моркви)",
+        desc: "Пігмент помаранчевого кольору. Молекула складається з довгого вуглеводневого ланцюга без полярних груп.",
+        photoUrl: "https://images.unsplash.com/photo-1598170845058-12ef4a45753b?auto=format&fit=crop&w=500&q=80",
+        polarity: "nonpolar",
+        correctSolvents: ["benzin"],
+        explanation: "Каротин — неполярна речовина. Вона не має полярних груп, тому чудово розчиняється в олії або бензині!",
+        moleculeSvg: `
+          <div class="text-center">
+            <span class="text-xs bg-amber-100 text-amber-900 px-2 py-1 rounded font-mono block mb-1">C₄₀H₅₆ (Довгий неполярний ланцюг)</span>
+            <div class="text-xs text-slate-600 italic">―CH=CH―C(CH₃)=CH―...</div>
+            <span class="text-xs text-amber-700 font-bold block mt-1">Відсутні полярні -OH або -COOH групи</span>
+          </div>
+        `
+      },
+      {
+        title: "Бетанін (із буряка)",
+        desc: "Червоний пігмент. У будові має багато полярних -COOH та -OH груп і позитивні/негативні заряди.",
+        photoUrl: "https://images.unsplash.com/photo-1593105544559-ecb03bf76f82?auto=format&fit=crop&w=500&q=80",
+        polarity: "polar",
+        correctSolvents: ["water"],
+        explanation: "Бетанін містить багато полярних карбоксильних та гідроксильних груп, тому легко розчиняється у полярній воді.",
+        moleculeSvg: `
+          <div class="text-center">
+            <span class="text-xs bg-sky-100 text-sky-900 px-2 py-1 rounded font-mono block mb-1">Полярна йонна форма</span>
+            <div class="text-xs text-blue-600 font-bold">Містить: 3x -COOH, 2x -OH, -N⁺</div>
+            <span class="text-xs text-slate-500 block mt-1">Сильний дипольний момент</span>
+          </div>
+        `
+      },
+      {
+        title: "Хлорофіл (із зеленого листя)",
+        desc: "Зелений пігмент фотосинтезу. Має велике порфіринове кільце з довгим неполярним фітольним хвостом.",
+        photoUrl: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=500&q=80",
+        polarity: "nonpolar",
+        correctSolvents: ["benzin", "ethanol"],
+        explanation: "Завдяки довгому неполярному хвосту хлорофіл чудово розчиняється у бензині, ефірі та спирті!",
+        moleculeSvg: `
+          <div class="text-center">
+            <span class="text-xs bg-emerald-100 text-emerald-900 px-2 py-1 rounded font-mono block mb-1">Комплекс Mg²⁺ + Фітол</span>
+            <div class="text-xs text-emerald-700 font-bold">Неполярний хвіст -C₂₀H₃₉</div>
+            <span class="text-xs text-slate-500 block mt-1">Переважають неполярні властивості</span>
+          </div>
+        `
+      },
+      {
+        title: "Кристалічний Йод (I₂)",
+        desc: "Проста речовина, двохатомна молекула утворена ковалентним неполярним зв'язком.",
+        photoUrl: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=500&q=80",
+        polarity: "nonpolar",
+        correctSolvents: ["benzin", "ethanol"],
+        explanation: "Молекула I₂ є неполярною, тому вона розчиняється у бензині/петролейному ефірі набагато краще, ніж у воді!",
+        moleculeSvg: `
+          <div class="text-center">
+            <span class="text-xs bg-purple-100 text-purple-900 px-2 py-1 rounded font-mono block mb-1">I ― I</span>
+            <div class="text-xs text-purple-700 font-bold">Ковалентний неполярний зв'язок</div>
+            <span class="text-xs text-slate-500 block mt-1">Рівномірний розподіл заряду</span>
+          </div>
+        `
+      },
+      {
+        title: "Цукор (Сахароза)",
+        desc: "Молекула складається з двох кілець, оточених 8-ма полярними гідроксильними групами (-OH).",
+        photoUrl: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&w=500&q=80",
+        polarity: "polar",
+        correctSolvents: ["water"],
+        explanation: "Завдяки 8-ми полярним гідроксильним групам цукор утворює міцні зв'язки з водою та легко розчиняється.",
+        moleculeSvg: `
+          <div class="text-center">
+            <span class="text-xs bg-sky-100 text-sky-900 px-2 py-1 rounded font-mono block mb-1">C₁₂H₂₂O₁₁</span>
+            <div class="text-xs text-blue-700 font-bold">Містить 8 полярних груп -OH</div>
+            <span class="text-xs text-slate-500 block mt-1">Висока розчинність у H₂O</span>
+          </div>
+        `
+      }
+    ];
+
+    let currentSorterIndex = 0;
+    let sorterScore = 0;
+
+    function loadSorterItem() {
+      try {
+        const item = sorterItems[currentSorterIndex];
+        const imgEl = document.getElementById('sorter-photo');
+        if (imgEl) {
+          imgEl.src = item.photoUrl;
+          imgEl.onerror = function() {
+            this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23f1f5f9'/><text x='50%' y='50%' font-size='16' text-anchor='middle' fill='%2364748b'>Зображення речовини</text></svg>";
+          };
+        }
+
+        document.getElementById('sorter-title').innerText = item.title;
+        document.getElementById('sorter-desc').innerText = item.desc;
+        document.getElementById('sorter-molecule-scheme').innerHTML = item.moleculeSvg;
+        document.getElementById('sorter-feedback').classList.add('hidden');
+        document.getElementById('solvent-choice').classList.add('hidden');
+        document.getElementById('next-sorter-btn').classList.add('hidden');
+      } catch (err) {
+        console.error("Error loading sorter item:", err);
+      }
+    }
+
+    function checkPolarity(polarity) {
+      const item = sorterItems[currentSorterIndex];
+      const feedback = document.getElementById('sorter-feedback');
+      feedback.classList.remove('hidden');
+
+      if (polarity === item.polarity) {
+        feedback.className = "mt-4 p-3 rounded-xl text-lg font-bold bg-green-100 text-green-900 border border-green-300";
+        feedback.innerHTML = "Правильно! Тепер оберіть оптимальний розчинник для екстракції.";
+        document.getElementById('solvent-choice').classList.remove('hidden');
+      } else {
+        feedback.className = "mt-4 p-3 rounded-xl text-lg font-bold bg-rose-100 text-rose-900 border border-rose-300";
+        feedback.innerHTML = "Невдало. Уважно подивіться на будову молекули!";
+      }
+    }
+
+    function checkSolvent(solvent) {
+      const item = sorterItems[currentSorterIndex];
+      const feedback = document.getElementById('sorter-feedback');
+
+      if (item.correctSolvents.includes(solvent)) {
+        sorterScore++;
+        feedback.className = "mt-4 p-3 rounded-xl text-lg font-bold bg-green-100 text-green-900 border border-green-300";
+        feedback.innerHTML = `Чудово! ${item.explanation}`;
+        document.getElementById('sorter-score').innerText = `Очки: ${sorterScore} / ${sorterItems.length}`;
+        document.getElementById('next-sorter-btn').classList.remove('hidden');
+      } else {
+        feedback.className = "mt-4 p-3 rounded-xl text-lg font-bold bg-amber-100 text-amber-900 border border-amber-300";
+        feedback.innerHTML = `Цей розчинник не підходить за полярністю. Подібне розчиняється в подобному!`;
+      }
+    }
+
+    function nextSorterItem() {
+      currentSorterIndex++;
+      if (currentSorterIndex < sorterItems.length) {
+        loadSorterItem();
+      } else {
+        document.getElementById('sorter-card').innerHTML = `
+          <div class="py-8">
+            <i class="fa-solid fa-trophy text-amber-500 text-6xl mb-4"></i>
+            <h3 class="text-2xl font-bold">Чудова робота!</h3>
+            <p class="text-lg text-slate-600 mt-2">Ви успішно пройшли тренажер. Очки: ${sorterScore} з ${sorterItems.length}</p>
+          </div>
+        `;
+      }
+    }
+
+    // LAB EXPERIMENTS
+    let currentLabExp = null;
+    let labStep = 0;
+
+    const labExperiments = {
+      leaves: {
+        title: "Дослід 1: Екстракція пігментів зеленого листя",
+        steps: [
+          {
+            instruction: "Крок 1: Подрібніть ножицями листя та розтріть його у ступці разом із піском/крейдою (абразивом).",
+            btnText: "Розтерти товкачиком у ступці",
+            render: () => `
+              <div class="text-center space-y-3">
+                <div class="mortar-bowl mx-auto flex items-center justify-center shadow-md">
+                  <span class="text-4xl">🌿⏳</span>
+                </div>
+                <p class="text-sm text-slate-600 font-semibold">Навіщо абразив? Пісок механічно руйнує міцні клітинні стінки рослини!</p>
+              </div>
+            `
+          },
+          {
+            instruction: "Крок 2: Додайте етиловий спирт або бензин (органічний розчинник) та перемішайте.",
+            btnText: "Профільтрувати отриману суміш",
+            render: () => `
+              <div class="text-center space-y-3">
+                <div class="mortar-bowl mx-auto flex items-center justify-center bg-emerald-200 border-emerald-400">
+                  <span class="text-4xl">🧪🍃</span>
+                </div>
+                <p class="text-sm text-slate-600">Органічний розчинник вимиває (екстрагує) неполярний хлорофіл із клітинної маси.</p>
+              </div>
+            `
+          },
+          {
+            instruction: "Крок 3: Отримано прозорий зелений екстракт хлорофілу. Для виділення сухого пігменту розчинник випарюють.",
+            btnText: "Завершити дослід",
+            render: () => `
+              <div class="text-center space-y-2">
+                <div class="w-16 h-40 bg-emerald-600 border-2 border-slate-500 rounded-b-3xl mx-auto flex items-end justify-center pb-4 shadow-lg">
+                  <span class="text-white font-bold text-xs bg-emerald-800/80 px-2 py-0.5 rounded">Хлорофіл</span>
+                </div>
+                <p class="text-emerald-800 font-bold text-base">Екстракція вибірковим розчинником пройшла успішно!</p>
+              </div>
+            `
+          }
+        ]
+      },
+      iodine: {
+        title: "Дослід 2: Перерозподіл Йоду між двома розчинниками",
+        steps: [
+          {
+            instruction: "Крок 1: У пробірці міститься водно-спиртовий розчин йоду (бурого кольору).",
+            btnText: "Додати неполярний розчинник (бензин)",
+            render: () => `
+              <div class="test-tube mx-auto">
+                <div class="layer-bottom h-full bg-amber-700 text-white flex items-center justify-center p-2">
+                  Водно-спиртовий розчин I₂
+                </div>
+              </div>
+            `
+          },
+          {
+            instruction: "Крок 2: Інтенсивно струсіть пробірку для контакту двох рідин.",
+            btnText: "Дати рідинам розшаруватися",
+            render: () => `
+              <div class="test-tube mx-auto animate-pulse">
+                <div class="layer-bottom h-full bg-amber-600 text-white flex items-center justify-center">
+                  Перемішування...
+                </div>
+              </div>
+            `
+          },
+          {
+            instruction: "Крок 3: Йод є неполярним, тому повністю перейшов у верхній неполярний шар (бензин), забарвивши його у фіолетовий колір!",
+            btnText: "Завершити дослід",
+            render: () => `
+              <div class="test-tube mx-auto">
+                <div class="layer-top h-1/2 bg-purple-600 text-white">
+                  <span>Бензин + I₂</span>
+                  <span class="text-[10px] text-purple-200">(Фіолетовий)</span>
+                </div>
+                <div class="layer-bottom h-1/2 bg-amber-100 text-amber-900 border-t border-slate-300">
+                  <span>Вода</span>
+                  <span class="text-[10px] text-amber-700">(Знебарвлена)</span>
+                </div>
+              </div>
+            `
+          }
+        ]
+      }
+    };
+
+    function setupLabExp(key) {
+      currentLabExp = labExperiments[key];
+      labStep = 0;
+      updateLabUI();
+    }
+
+    function advanceLabStep() {
+      if (!currentLabExp) return;
+      if (labStep === currentLabExp.steps.length - 1) {
+        completeLabExperiment();
+        return;
+      }
+      labStep++;
+      updateLabUI();
+    }
+
+    function completeLabExperiment() {
+      const workspace = document.getElementById('lab-visuals');
+      workspace.innerHTML = `
+        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-6 text-center max-w-md mx-auto my-4 shadow-sm">
+          <div class="text-5xl mb-2">🎉</div>
+          <h4 class="font-bold text-2xl text-emerald-900 mb-2">Дослід успішно завершено!</h4>
+          <p class="text-slate-700 text-base mb-4">Ви правильно провели всі етапи екстракції та спостерігали розділення речовин.</p>
+          <button onclick="resetLabWorkspace()" class="btn-primary px-6 py-2.5 rounded-xl font-bold">
+            Обрати інший дослід
+          </button>
+        </div>
+      `;
+
+      document.getElementById('lab-instruction').innerText = "Вітаємо із завершенням експерименту!";
+      const btn = document.getElementById('lab-action-btn');
+      btn.innerText = "Дослід завершено";
+      btn.disabled = true;
+      btn.className = "bg-slate-300 text-slate-500 font-bold px-8 py-3 rounded-xl cursor-not-allowed text-lg";
+    }
+
+    function resetLabWorkspace() {
+      currentLabExp = null;
+      labStep = 0;
+      document.getElementById('lab-title').innerText = "Оберіть експеримент вище";
+      document.getElementById('lab-step-badge').innerText = "Крок 1";
+      document.getElementById('lab-instruction').innerText = "Очікування вибору досліду...";
+      document.getElementById('lab-visuals').innerHTML = `
+        <div class="text-slate-400 text-center">
+          <i class="fa-solid fa-flask-vials text-6xl mb-3"></i>
+          <p class="text-lg">Натисніть на картку досліду вище, щоб розпочати</p>
+        </div>
+      `;
+      const btn = document.getElementById('lab-action-btn');
+      btn.innerText = "Виконати дію";
+      btn.disabled = true;
+      btn.className = "bg-slate-300 text-slate-500 font-bold px-8 py-3 rounded-xl cursor-not-allowed text-lg";
+    }
+
+    function updateLabUI() {
+      const exp = currentLabExp;
+      const stepData = exp.steps[labStep];
+
+      document.getElementById('lab-title').innerText = exp.title;
+      document.getElementById('lab-step-badge').innerText = `Крок ${labStep + 1} з ${exp.steps.length}`;
+      document.getElementById('lab-instruction').innerText = stepData.instruction;
+      document.getElementById('lab-visuals').innerHTML = stepData.render();
+
+      const btn = document.getElementById('lab-action-btn');
+      btn.innerText = stepData.btnText;
+      btn.disabled = false;
+      btn.className = "btn-primary font-bold px-8 py-3 rounded-xl shadow-md cursor-pointer text-lg";
+    }
+
+    // STAIN SIMULATION LOGIC
+    const stainConfigs = {
+      grass: {
+        title: "Пляма від свіжої зеленої трави",
+        hint: "Містить пігмент хлорофіл (неполярний). Вода його не розчиняє.",
+        colorClass: "bg-emerald-600",
+        correctAgents: ["alcohol", "benzin"]
+      },
+      beet: {
+        title: "Пляма від бурякового соку",
+        hint: "Містить пігмент бетанін (полярний). Гаряча вода заварює пігмент!",
+        colorClass: "bg-rose-600",
+        correctAgents: ["water", "soap"]
+      },
+      butter: {
+        title: "Жирна пляма від рослинної олії",
+        hint: "Складається з неполярних жирів. Видаляється неполярним розчинником чи милом.",
+        colorClass: "bg-amber-500",
+        correctAgents: ["benzin", "soap"]
+      }
+    };
+
+    let activeStainKey = 'grass';
+
+    function loadStainSim(key) {
+      activeStainKey = key;
+      const config = stainConfigs[key];
+
+      document.querySelectorAll('.stain-tab').forEach(btn => {
+        btn.classList.remove('bg-green-100', 'bg-rose-100', 'bg-amber-100');
+        btn.classList.add('bg-white');
+      });
+
+      document.getElementById(`stain-btn-${key}`).classList.add(
+        key === 'grass' ? 'bg-green-100' : key === 'beet' ? 'bg-rose-100' : 'bg-amber-100'
+      );
+
+      document.getElementById('sim-stain-title').innerText = config.title;
+      document.getElementById('sim-stain-hint').innerText = config.hint;
+
+      const blob = document.getElementById('sim-stain-blob');
+      blob.className = `w-20 h-20 rounded-full blur-sm transition-all duration-700 z-10 opacity-90 ${config.colorClass}`;
+
+      document.getElementById('sim-result-box').classList.add('hidden');
+    }
+
+    function runStainSimulation() {
+      const config = stainConfigs[activeStainKey];
+      const temp = document.getElementById('sim-select-temp').value;
+      const agent = document.getElementById('sim-select-agent').value;
+      const resultBox = document.getElementById('sim-result-box');
+      const blob = document.getElementById('sim-stain-blob');
+
+      resultBox.classList.remove('hidden');
+
+      if (activeStainKey === 'beet' && temp === 'hot') {
+        blob.className = "w-24 h-24 rounded-full transition-all duration-700 z-10 opacity-100 bg-rose-950 blur-none";
+        resultBox.className = "p-5 rounded-2xl border-2 bg-rose-50 border-rose-300 text-rose-950";
+        resultBox.innerHTML = `
+          <h4 class="font-bold text-xl mb-1">❌ Помилка! Пляма закріпилася!</h4>
+          <p>Гаряча вода (90°C) закріпила органічний пігмент у волокнах тканини. Для соку буряка слід використовувати <strong>холодну або теплу воду</strong> з милом.</p>
+        `;
+        return;
+      }
+
+      if (config.correctAgents.includes(agent)) {
+        blob.className = "w-0 h-0 transition-all duration-1000 opacity-0";
+        resultBox.className = "p-5 rounded-2xl border-2 bg-emerald-50 border-emerald-300 text-emerald-950";
+        resultBox.innerHTML = `
+          <h4 class="font-bold text-xl mb-1"> Успіх! Пляму повністю виведено!</h4>
+          <p>Ви правильно підібрали розчинник за полярністю!</p>
+        `;
+      } else {
+        blob.className = `w-20 h-20 rounded-full blur-sm transition-all duration-700 z-10 opacity-80 ${config.colorClass}`;
+        resultBox.className = "p-5 rounded-2xl border-2 bg-amber-50 border-amber-300 text-amber-950";
+        resultBox.innerHTML = `
+          <h4 class="font-bold text-xl mb-1">⚠️ Пляма залишилася на тканині</h4>
+          <p>Звичайна вода не може розчинити неполярну речовину (олію або хлорофіл). Оберіть <strong>очищений бензин, спирт або мийний засіб (мило)</strong>!</p>
+        `;
+      }
+    }
+
+    // QUIZ DATA
+    const quizQuestions = [
+      {
+        q: "1. Що лежить в основі фізичного процесу екстракції?",
+        options: ["Хімічна реакція нейтралізації", "Вибіркове розчинення компонентів у відповідному розчиннику", "Просіювання крізь сито", "Випаровування води"],
+        correct: 1,
+        exp: "Екстракція базується на різній розчинності речовин у полярних або неполярних розчинниках."
+      },
+      {
+        q: "2. З якою метою перед екстракцією рослинну сировину розтирають із піском?",
+        options: ["Щоб змінити колір пігменту", "Для механічного руйнування клітинних стінок", "Для хімічного зв'язування води", "Пісок є розчинником"],
+        correct: 1,
+        exp: "Пісок виступає абразивом, що руйнує міцні оболонки рослинних клітин."
+      },
+      {
+        q: "3. Чому вітамін А (неполярна сполука) краще засвоюється з моркви, якщо споживати її зі сметаною чи олією?",
+        options: ["Олія нейтралізує кислотність", "Вітамін А є неполярним і екстрагується в жири", "Смета містить багато води", "Олія прискорює травлення"],
+        correct: 1,
+        exp: "Неполярний каротин (провітамін А) розчиняється у жирах сметани/олії та легко засвоюється."
+      },
+      {
+        q: "4. Яка за полярністю молекула кристалічного йоду I₂?",
+        options: ["Сильно полярна", "Йонна", "Неполярна", "Залежить від температури"],
+        correct: 2,
+        exp: "Двохатомна молекула I₂ утворена неполярним ковалентним зв'язком."
+      },
+      {
+        q: "5. У якому розчиннику розчинність йоду є найбільшою?",
+        options: ["У дистильованій воді", "У неполярному бензині / органічному розчиннику", "У цукровому сиропі", "У кухонній солі"],
+        correct: 1,
+        exp: "Неполярний йод краще розчиняється у неполярних органічних розчинниках."
+      },
+      {
+        q: "6. Чим заварювання чаю у чайнику відрізняється від розчинення цукру у воді?",
+        options: ["Нічим, це однакові процеси", "Заварювання є екстракцією з твердої сировини із залишенням нерозчинного залишку", "Цукор не розчиняється у воді", "При заварюванні відбувається хімічна реакція"],
+        correct: 1,
+        exp: "Чайне листя містить як розчинні речовини (які вимиваються), так і нерозчинну клітковину (залишок)."
+      },
+      {
+        q: "7. Який розчинник є найбільш універсальним для виведення зелених плям трави?",
+        options: ["Холодна вода", "Очищений бензин або спирт", "Оцет", "Солона вода"],
+        correct: 1,
+        exp: "Неполярний хлорофіл розчиняється у бензині та спирті."
+      },
+      {
+        q: "8. Як виділяють розчинник після закінчення екстракції для отримання сухого екстракту?",
+        options: ["Заморожуванням", "Шляхом випарювання / перегонки", "Фільтруванням крізь папір", "Відстоюванням"],
+        correct: 1,
+        exp: "Розчинник відокремлюють від екстрагованої речовини випарюванням або дистиляцією."
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (!container) return;
+      container.innerHTML = quizQuestions.map((q, idx) => `
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="font-bold text-lg text-slate-800 mb-3">${q.q}</p>
+          <div class="space-y-2">
+            ${q.options.map((opt, oIdx) => `
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer text-base">
+                <input type="radio" name="q${idx}" value="${oIdx}" class="w-5 h-5 text-blue-600">
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div id="quiz-explain-${idx}" class="hidden mt-3 p-3 bg-blue-50 text-blue-950 text-sm font-medium rounded-xl border border-blue-200"></div>
+        </div>
+      `).join('');
+    }
+
+    function calculateQuizScore() {
+      let score = 0;
+      quizQuestions.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+        const explainBox = document.getElementById(`quiz-explain-${idx}`);
+        if (explainBox) {
+          explainBox.classList.remove('hidden');
+          if (selected && parseInt(selected.value) === q.correct) {
+            score++;
+            explainBox.className = "mt-3 p-3 bg-emerald-50 text-emerald-950 text-sm font-medium rounded-xl border border-emerald-200";
+            explainBox.innerHTML = `Правильно! ${q.exp}`;
+          } else {
+            explainBox.className = "mt-3 p-3 bg-rose-50 text-rose-950 text-sm font-medium rounded-xl border border-rose-200";
+            explainBox.innerHTML = `Помилка. Пояснення: ${q.exp}`;
+          }
+        }
+      });
+
+      const scoreBox = document.getElementById('quiz-final-score');
+      if (scoreBox) {
+        scoreBox.innerHTML = `Ваш результат: <span class="text-blue-600 font-bold">${score}</span> з ${quizQuestions.length} балів!`;
+      }
+    }
+
+    // Safe Window Onload Initializer
+    window.onload = function() {
+      try {
+        loadSorterItem();
+        loadStainSim('grass');
+        renderQuiz();
+      } catch (e) {
+        console.error("Initialization error:", e);
+      }
+    };
+  </script>
+</body>
+</html>
+
+```eof
